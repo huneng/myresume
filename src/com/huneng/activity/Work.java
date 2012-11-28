@@ -50,6 +50,7 @@ public class Work extends Activity {
 
 	@Override
 	protected void onResume() {
+		works = ResumeActivity.resume.myData.works;
 		if (curIndex >= works.size()) {
 			curIndex = 0;
 		}
@@ -74,7 +75,7 @@ public class Work extends Activity {
 					front();
 				break;
 			case R.id.work_next:
-				if (curIndex != works.size())
+				if (curIndex != works.size()-1)
 					next();
 				break;
 			case R.id.work_new:

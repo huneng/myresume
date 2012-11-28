@@ -2,8 +2,12 @@ package com.huneng.net;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 import android.annotation.SuppressLint;
 import android.os.StrictMode;
 
@@ -31,6 +35,17 @@ public class HttpWork {
 
 	}
 
+	public int synchronous(String data, int id) {
+		int t = 0;
+		if (id == -1) {
+			t = this.pushResume(data);
+		} else {
+			t = this.updateResume(data);
+
+		}
+		return t;
+	}
+
 	public String getResume(int id) {
 		String result = "";
 		String url = site + "/android/getresume/" + id;
@@ -41,10 +56,19 @@ public class HttpWork {
 		}
 		if (result.equals("error"))
 			return "Can't get!";
+		try {
+			result = URLDecoder.decode(result, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 
 	public int pushResume(String data) {
+		try {
+			data = URLEncoder.encode(data, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+		}
 		String myurl = site + "/android/pushresume/" + data;
 
 		String r = "";
@@ -63,6 +87,10 @@ public class HttpWork {
 	}
 
 	public int updateResume(String data) {
+		try {
+			data = URLEncoder.encode(data, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+		}
 		String myurl = site + "/android/update/" + data;
 
 		String r = "";
@@ -75,7 +103,7 @@ public class HttpWork {
 		if (r.equals("error")) {
 			t = -1;
 		} else {
-			t = 1;
+			t = 0;
 		}
 		return t;
 	}
@@ -89,8 +117,8 @@ public class HttpWork {
 		StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
 				.detectLeakedSqlLiteObjects().penaltyLog().penaltyDeath()
 				.build());
-		URL url = new URL(myUrl);
 		String result = "";
+		URL url = new URL(myUrl);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 		InputStream in = con.getInputStream();

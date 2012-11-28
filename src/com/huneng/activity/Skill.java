@@ -47,6 +47,7 @@ public class Skill extends Activity {
 
 	@Override
 	protected void onResume() {
+		skills = ResumeActivity.resume.myData.skills;
 		if (curIndex >= skills.size()) {
 			curIndex = 0;
 		}

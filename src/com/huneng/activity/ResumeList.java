@@ -41,7 +41,6 @@ public class ResumeList extends ListActivity {
 		for (int i = 0; i < len; i++) {
 			id.add("" + array.getInt(i));
 		}
-		id.add("new resume");
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, id);
 
@@ -52,28 +51,15 @@ public class ResumeList extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		String str = this.id.get(position);
 		int t;
-		if (str.equals("new resume")) {
-			MyJson json = new MyJson();
-			try {
-				t = hw.pushResume(json.changToJsonData());
-			} catch (JSONException e) {
-				t = -1;
-			}
-			if (t != -1) {
-				ResumeActivity.resume.myData = json;
-				ResumeActivity.resume.myData.id = t;
-			}
-		} else {
-			t = Integer.parseInt(str);
-
-			try {
-				ResumeActivity.resume.myData = new MyJson(new JSONObject(
-						hw.getResume(t)));
-				ResumeActivity.resume.myData.id = t;
-			} catch (JSONException e) {
-			}
-			
+		t = Integer.parseInt(str);
+		try {
+			ResumeActivity.resume.myData = new MyJson(new JSONObject(
+					hw.getResume(t)));
+			ResumeActivity.resume.myData.id = t;
+		} catch (JSONException e) {
 		}
+
+		ResumeActivity.resume.filedealtor.fileName = "";
 		this.finish();
 		super.onListItemClick(l, v, position, id);
 	}

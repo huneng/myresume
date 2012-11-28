@@ -26,7 +26,7 @@ public class MyJson {
 		picturePath = "";
 //		addSkill();
 //		addWork();
-//		remarks.add("I am a student");
+		remarks.add("I am a student");
 	}
 
 	private void addSkill() {

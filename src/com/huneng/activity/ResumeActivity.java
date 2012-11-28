@@ -30,8 +30,8 @@ public class ResumeActivity extends TabActivity {
 	public Bitmap photo;
 	public static int width, height;
 	public String usrname, pwd;
-	public String site = "http://192.168.1.103:8080";
-	private FileDealtor filedealtor;
+	public String site = "http://192.168.1.104:8080";
+	public FileDealtor filedealtor;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -103,12 +103,14 @@ public class ResumeActivity extends TabActivity {
 					data = myData.changToJsonData();
 				} catch (JSONException e) {
 				}
-				if (!(myData.id == -1 || usrname.equals("") || pwd.equals(""))) {
+				if (!(usrname.equals("") || pwd.equals(""))) {
 					HttpWork hw = new HttpWork();
 					hw.usr = usrname;
 					hw.pw = pwd;
 					hw.site = site;
-					hw.updateResume(data);
+					int t = hw.synchronous(data, myData.id);
+					if(t>0)
+						myData.id = t;
 				}
 				try {
 					filedealtor.writeToFile(data);
