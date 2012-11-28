@@ -17,16 +17,16 @@ public class MyJson {
 	public String picturePath;
 
 	public MyJson() {
-		id = 0;
+		id = -1;
 		usr = "huneng";
 		basedata = new BaseData();
 		skills = new LinkedList<SkillData>();
 		works = new LinkedList<WorkData>();
 		remarks = new LinkedList<String>();
 		picturePath = "";
-		addSkill();
-		addWork();
-		remarks.add("I am a student");
+//		addSkill();
+//		addWork();
+//		remarks.add("I am a student");
 	}
 
 	private void addSkill() {
@@ -114,6 +114,7 @@ public class MyJson {
 		skills = new LinkedList<SkillData>();
 		works = new LinkedList<WorkData>();
 		remarks = new LinkedList<String>();
+		basedata = new BaseData();
 		id = object.getInt("id");
 		usr = object.getString("username");
 

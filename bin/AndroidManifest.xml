@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -30,8 +32,9 @@
         <activity android:name=".Work" />
         <activity android:name=".Painting" />
         <activity android:name=".ArcGraph" />
-        <activity android:name=".LoginActivity" >
-        </activity>
+        <activity android:name=".FileManager" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ResumeList" />
     </application>
 
 </manifest>

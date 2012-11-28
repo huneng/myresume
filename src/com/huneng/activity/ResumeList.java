@@ -10,100 +10,71 @@ import org.json.JSONObject;
 import com.huneng.data.MyJson;
 import com.huneng.net.HttpWork;
 
-
 import android.app.ListActivity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ResumeList extends ListActivity {
-	List<String> idlist;
-	public static HttpWork hw;
-	private String parentstr;
+	public HttpWork hw;
+	List<String> id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// get data from parent activity
-		Intent intent = getIntent();
-		parentstr = intent.getStringExtra("idlist");
-		String username = intent.getStringExtra("username");
-		String password = intent.getStringExtra("password");
-
-		String site = "http://192.168.1.109:8080";
 		hw = new HttpWork();
-		hw.setSite(site);
-		hw.setUser(username, password);
-
-		idlist = new LinkedList<String>();
-	}
-
-	void init(String str) {
-		idlist.clear();
+		hw.site = ResumeActivity.resume.site;
+		hw.usr = ResumeActivity.resume.usrname;
+		hw.pw = ResumeActivity.resume.pwd;
 		try {
-			toIdList(str);
+			init();
 		} catch (JSONException e) {
 		}
-		idlist.add(new String("New ID"));
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, idlist);
-		setListAdapter(adapter);
 	}
 
-	@Override
-	protected void onResume() {
-		if (parentstr != null) {
-			// 登录后第一次查看数据
-			init(parentstr);
-			parentstr = null;
-		} else {
-			// 登录后非第一次查看数据
-			String str = hw.submit();
-			init(str);
-		}
-		super.onResume();
-	}
-
-	private void toIdList(String str) throws JSONException {
+	private void init() throws JSONException {
+		String str = hw.submit();
 		JSONArray array = new JSONArray(str);
 		int len = array.length();
+		id = new LinkedList<String>();
 		for (int i = 0; i < len; i++) {
-			int t = array.getInt(i);
-			idlist.add("" + t);
+			id.add("" + array.getInt(i));
 		}
+		id.add("new resume");
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, id);
+
+		this.setListAdapter(adapter);
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		String resume = "";
-		if (position == idlist.size() - 1) {
-			MyJson data = new MyJson();
-			data.id = -1;
-			data.usr = hw.usr;
+		String str = this.id.get(position);
+		int t;
+		if (str.equals("new resume")) {
+			MyJson json = new MyJson();
 			try {
-				resume = data.changToJsonData();
+				t = hw.pushResume(json.changToJsonData());
 			} catch (JSONException e) {
+				t = -1;
+			}
+			if (t != -1) {
+				ResumeActivity.resume.myData = json;
+				ResumeActivity.resume.myData.id = t;
 			}
 		} else {
-			int resumeid = Integer.parseInt(idlist.get(position));
-			resume = hw.getResume(resumeid);
+			t = Integer.parseInt(str);
 
 			try {
-				JSONObject object = new JSONObject(resume);
-				object.put("id", resumeid);
-				resume = object.toString();
+				ResumeActivity.resume.myData = new MyJson(new JSONObject(
+						hw.getResume(t)));
+				ResumeActivity.resume.myData.id = t;
 			} catch (JSONException e) {
-				Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
 			}
-
+			
 		}
-		Intent intent = new Intent();
-		intent.setClass(ResumeList.this, ResumeActivity.class);
-		intent.putExtra("resume", resume);
-		startActivity(intent);
+		this.finish();
 		super.onListItemClick(l, v, position, id);
 	}
 

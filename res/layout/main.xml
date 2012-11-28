@@ -23,7 +23,7 @@
             android:padding="5dp" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -42,6 +42,7 @@
             android:id="@+id/save"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_toRightOf="@id/ok"
             android:background="@drawable/save"
             android:layout_marginRight="15dp"/>
         
@@ -49,8 +50,16 @@
             android:id="@+id/open"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_toRightOf="@id/save"
             android:background="@drawable/open"
             android:layout_marginRight="15dp"/>
-    </LinearLayout>
+        <Button
+            android:id="@+id/net"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/net"
+            android:layout_marginRight="15dp"/>
+    </RelativeLayout>
 
 </TabHost>

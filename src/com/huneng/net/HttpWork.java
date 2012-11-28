@@ -19,38 +19,16 @@ public class HttpWork {
 		site = s;
 	}
 
-	public void setSite(String s) {
-		site = s;
-	}
-
-	public void setUser(String username, String password) {
-		usr = username;
-		pw = password;
-	}
-
 	public String submit() {
 		String url = site + "/android/login/" + usr + '/' + pw;
 		String r = "";
 		try {
 			r = contactWithServer(url);
 		} catch (IOException e) {
-			r = "Can't submit";
+			r = "error";
 		}
-
 		return r;
 
-	}
-
-	public String submit(String usrname, String password) {
-		String url = site + "/android/login/" + usrname + '/' + password;
-		String r = "";
-		try {
-			r = contactWithServer(url);
-		} catch (IOException e) {
-			r = "Can't submit";
-		}
-
-		return r;
 	}
 
 	public String getResume(int id) {
@@ -59,19 +37,47 @@ public class HttpWork {
 		try {
 			result = contactWithServer(url);
 		} catch (IOException e) {
-			result = "Can't get!";
+			result = "error";
 		}
 		if (result.equals("error"))
-			return "";
+			return "Can't get!";
 		return result;
 	}
 
-	public String pushResume(String data) {
-		
+	public int pushResume(String data) {
+		String myurl = site + "/android/pushresume/" + data;
+
 		String r = "";
+		try {
+			r = contactWithServer(myurl);
+		} catch (IOException e) {
+			r = "error";
+		}
+		int t;
+		if (r.equals("error")) {
+			t = -1;
+		} else {
+			t = Integer.parseInt(r);
+		}
+		return t;
+	}
 
+	public int updateResume(String data) {
+		String myurl = site + "/android/update/" + data;
 
-		return r;
+		String r = "";
+		try {
+			r = contactWithServer(myurl);
+		} catch (IOException e) {
+			r = "error";
+		}
+		int t;
+		if (r.equals("error")) {
+			t = -1;
+		} else {
+			t = 1;
+		}
+		return t;
 	}
 
 	@SuppressLint("NewApi")
@@ -86,7 +92,7 @@ public class HttpWork {
 		URL url = new URL(myUrl);
 		String result = "";
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		
+
 		InputStream in = con.getInputStream();
 		StringBuffer buffer = new StringBuffer();
 		int length = con.getContentLength();

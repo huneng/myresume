@@ -42,7 +42,7 @@ public class Base extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.base);
 		basedata = ResumeActivity.resume.myData.basedata;
-		
+
 		name_ed = (EditText) findViewById(R.id.name_edit);
 		phone_ed = (EditText) findViewById(R.id.phone_edit);
 		addr_ed = (EditText) findViewById(R.id.address_edit);
@@ -58,7 +58,7 @@ public class Base extends Activity {
 		holi_ed.setOnFocusChangeListener(focus);
 		salary_ed.setOnFocusChangeListener(focus);
 		remark_ed.setOnFocusChangeListener(focus);
-		
+
 		btn = (Button) findViewById(R.id.age_btn);
 		timeBtn = (Button) findViewById(R.id.start_end_btn);
 		getPhoneBtn = (Button) findViewById(R.id.get_tel);
@@ -71,14 +71,16 @@ public class Base extends Activity {
 		image.setOnClickListener(l);
 
 		parent = ResumeActivity.resume;
+
 	}
 
 	OnFocusChangeListener focus = new OnFocusChangeListener() {
 
 		@Override
 		public void onFocusChange(View v, boolean hasFocus) {
-			if (hasFocus)
+			if (hasFocus) {
 				return;
+			}
 			switch (v.getId()) {
 			case R.id.name_edit:
 				basedata.name = name_ed.getText().toString();
@@ -152,6 +154,18 @@ public class Base extends Activity {
 			}
 		}
 	};
+	void saveData() {
+		basedata.name = name_ed.getText().toString();
+		basedata.phone = phone_ed.getText().toString();
+		basedata.address = addr_ed.getText().toString();
+		basedata.job = job_ed.getText().toString();
+		basedata.holiday = holi_ed.getText().toString();
+		basedata.salary = salary_ed.getText().toString();
+		remark = remark_ed.getText().toString();
+		ResumeActivity.resume.myData.setRemark(remark);
+	}
+
+
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -192,6 +206,7 @@ public class Base extends Activity {
 	@Override
 	protected void onResume() {
 		remark = ResumeActivity.resume.myData.getRemark();
+		basedata = ResumeActivity.resume.myData.basedata;
 		init();
 		super.onResume();
 	}
@@ -202,7 +217,7 @@ public class Base extends Activity {
 		int time[] = getNumber(str);
 		basedata.starttime = time[0];
 		basedata.endtime = time[1];
-		
+		saveData();
 		super.onPause();
 	}
 
@@ -213,7 +228,7 @@ public class Base extends Activity {
 		sexBtn.setText(basedata.sex);
 		phone_ed.setText(basedata.phone);
 		addr_ed.setText(basedata.address);
-		String str = ""+basedata.starttime+"-"+basedata.endtime;
+		String str = "" + basedata.starttime + "-" + basedata.endtime;
 		timeBtn.setText(str);
 		btn.setText(basedata.birth);
 		job_ed.setText(basedata.job);
@@ -221,13 +236,13 @@ public class Base extends Activity {
 		salary_ed.setText(basedata.salary);
 		remark_ed.setText(remark);
 	}
-	
+
 	int[] getNumber(String str) {
 		int time[] = { 0, 0 };
 		String t1, t2;
 		try {
 			t1 = str.substring(0, str.indexOf('-'));
-			t2 = str.substring(str.indexOf('-')+1);
+			t2 = str.substring(str.indexOf('-') + 1);
 		} catch (Exception e) {
 			t1 = t2 = null;
 		}

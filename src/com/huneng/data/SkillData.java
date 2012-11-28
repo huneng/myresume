@@ -21,6 +21,7 @@ public class SkillData {
 		skillname = o.getString("skillname");
 		starttime = o.getInt("starttime");
 		JSONArray array = o.getJSONArray("scores");
+		scores = new int[20];
 		int len = array.length();
 		for (int i = 0; i < len; i++)
 			scores[length++] = array.getInt(i);

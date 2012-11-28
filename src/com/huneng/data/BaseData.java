@@ -14,13 +14,15 @@ public class BaseData {
 	public int starttime, endtime;
 
 	public BaseData() {
-		name = "huneng";
-		birth = "1991-6-7";
-		phone = "110";
-		address = "zhejiang";
-		job = "programmer";
-		salary = "1000 yuan";
-		holiday = "10 day every month";
+		name=phone=address = job = salary = holiday = "";
+		starttime = endtime = 0;
+//		name = "huneng";
+//		birth = "1991-6-7";
+//		phone = "110";
+//		address = "zhejiang";
+//		job = "programmer";
+//		salary = "1000 yuan";
+//		holiday = "10 day every month";
 		sex = "male";
 		starttime = 2010;
 		endtime = 2014;
