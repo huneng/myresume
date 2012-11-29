@@ -19,8 +19,8 @@
 
             <ImageButton
                 android:id="@+id/photo_view"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/people"
                 android:contentDescription="@string/description"
@@ -29,7 +29,7 @@
             <EditText
                 android:id="@+id/name_edit"
                 style="@style/InputEdit"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/photo_view"
                 android:hint="@string/name"
                 android:inputType="textPersonName" />
@@ -40,14 +40,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/name_edit"
                 android:layout_below="@id/name_edit"
-                android:layout_marginRight="65dp"
+                android:layout_marginRight="75dp"
                 android:layout_marginTop="10dp"
                 android:background="@android:drawable/btn_default_small"
                 android:gravity="center" />
 
             <Button
                 android:id="@+id/sex_btn"
-                android:layout_width="55dp"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/name_edit"
@@ -138,8 +138,8 @@
         <EditText
             android:id="@+id/remark_edit"
             style="@style/InputEdit"
-            android:inputType="text" 
-            android:hint="@string/remark"/>
+            android:hint="@string/remark"
+            android:inputType="text" />
     </LinearLayout>
 
 </ScrollView>

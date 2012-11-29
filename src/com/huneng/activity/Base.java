@@ -19,7 +19,6 @@ import android.provider.MediaStore;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,21 +26,20 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class Base extends Activity {
-	EditText name_ed, phone_ed, addr_ed;
-	EditText job_ed, holi_ed, salary_ed;
-	EditText remark_ed;
-	Button btn, getPhoneBtn, timeBtn, sexBtn;
-	BaseData basedata;
-	String remark;
-	ImageView image;
-	ResumeActivity parent;
+	private EditText name_ed, phone_ed, addr_ed;
+	private EditText job_ed, holi_ed, salary_ed;
+	private EditText remark_ed;
+	private Button btn, getPhoneBtn, timeBtn, sexBtn;
+	private BaseData basedata;
+	private String remark;
+	private ImageView image;
+	private ResumeActivity parent;
 	private static int RESULT_LOAD_IMAGE = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.base);
-		basedata = ResumeActivity.resume.myData.basedata;
 
 		name_ed = (EditText) findViewById(R.id.name_edit);
 		phone_ed = (EditText) findViewById(R.id.phone_edit);
@@ -49,65 +47,42 @@ public class Base extends Activity {
 		job_ed = (EditText) findViewById(R.id.job1_edit);
 		holi_ed = (EditText) findViewById(R.id.holiday1_edit);
 		salary_ed = (EditText) findViewById(R.id.salary1_edit);
-		salary_ed.setOnFocusChangeListener(focus);
 		remark_ed = (EditText) findViewById(R.id.remark_edit);
-		name_ed.setOnFocusChangeListener(focus);
-		phone_ed.setOnFocusChangeListener(focus);
-		addr_ed.setOnFocusChangeListener(focus);
-		job_ed.setOnFocusChangeListener(focus);
-		holi_ed.setOnFocusChangeListener(focus);
-		salary_ed.setOnFocusChangeListener(focus);
-		remark_ed.setOnFocusChangeListener(focus);
 
 		btn = (Button) findViewById(R.id.age_btn);
 		timeBtn = (Button) findViewById(R.id.start_end_btn);
 		getPhoneBtn = (Button) findViewById(R.id.get_tel);
 		sexBtn = (Button) findViewById(R.id.sex_btn);
+		image = (ImageView) findViewById(R.id.photo_view);
+
 		sexBtn.setOnClickListener(l);
 		btn.setOnClickListener(l);
 		getPhoneBtn.setOnClickListener(l);
 		timeBtn.setOnClickListener(l);
-		image = (ImageView) findViewById(R.id.photo_view);
 		image.setOnClickListener(l);
 
 		parent = ResumeActivity.resume;
 
 	}
 
-	OnFocusChangeListener focus = new OnFocusChangeListener() {
+	@Override
+	protected void onResume() {
+		remark = ResumeActivity.resume.myData.getRemark();
+		basedata = ResumeActivity.resume.myData.basedata;
+		init();
+		super.onResume();
+	}
 
-		@Override
-		public void onFocusChange(View v, boolean hasFocus) {
-			if (hasFocus) {
-				return;
-			}
-			switch (v.getId()) {
-			case R.id.name_edit:
-				basedata.name = name_ed.getText().toString();
-				break;
-			case R.id.phone_edit:
-				basedata.phone = phone_ed.getText().toString();
-				break;
-			case R.id.address_edit:
-				basedata.address = addr_ed.getText().toString();
-				break;
-			case R.id.job1_edit:
-				basedata.job = job_ed.getText().toString();
-				break;
-			case R.id.holiday1_edit:
-				basedata.holiday = holi_ed.getText().toString();
-				break;
-			case R.id.salary1_edit:
-				basedata.salary = salary_ed.getText().toString();
-				break;
-			case R.id.remark_edit:
-				remark = remark_ed.getText().toString();
-				ResumeActivity.resume.myData.setRemark(remark);
-				break;
-			}
-		}
+	@Override
+	protected void onPause() {
+		String str = timeBtn.getText().toString();
+		int time[] = getNumber(str);
+		basedata.starttime = time[0];
+		basedata.endtime = time[1];
+		saveData();
+		super.onPause();
+	}
 
-	};
 	OnClickListener l = new OnClickListener() {
 
 		public void onClick(View v) {
@@ -118,7 +93,6 @@ public class Base extends Activity {
 						calendar.get(Calendar.YEAR),
 						calendar.get(Calendar.MONTH),
 						calendar.get(Calendar.DAY_OF_MONTH)).show();
-
 				break;
 			case R.id.sex_btn:
 				if (basedata.sex.equals("male"))
@@ -139,7 +113,6 @@ public class Base extends Activity {
 					break;
 				}
 				phone_ed.setText(str);
-
 				break;
 			case R.id.start_end_btn:
 				new TimeDialog(Base.this, timeBtn).show();
@@ -154,6 +127,7 @@ public class Base extends Activity {
 			}
 		}
 	};
+
 	void saveData() {
 		basedata.name = name_ed.getText().toString();
 		basedata.phone = phone_ed.getText().toString();
@@ -164,8 +138,6 @@ public class Base extends Activity {
 		remark = remark_ed.getText().toString();
 		ResumeActivity.resume.myData.setRemark(remark);
 	}
-
-
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -202,24 +174,6 @@ public class Base extends Activity {
 		}
 
 	};
-
-	@Override
-	protected void onResume() {
-		remark = ResumeActivity.resume.myData.getRemark();
-		basedata = ResumeActivity.resume.myData.basedata;
-		init();
-		super.onResume();
-	}
-
-	@Override
-	protected void onPause() {
-		String str = timeBtn.getText().toString();
-		int time[] = getNumber(str);
-		basedata.starttime = time[0];
-		basedata.endtime = time[1];
-		saveData();
-		super.onPause();
-	}
 
 	private void init() {
 		if (parent.photo != null)

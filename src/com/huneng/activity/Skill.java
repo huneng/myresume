@@ -149,5 +149,5 @@ public class Skill extends Activity {
 		curSkill = skills.get(0);
 		initEdit(curSkill);
 	}
-
+	
 }

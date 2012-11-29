@@ -23,5 +23,6 @@ public class Line {
 	}
 	public void draw(Canvas canvas){
 		canvas.drawLine(x1, y1, x2, y2, paint);
+		canvas.drawCircle(x1, y1, 3, paint);
 	}
 }

@@ -18,64 +18,15 @@ public class MyJson {
 
 	public MyJson() {
 		id = -1;
-		usr = "huneng";
+		usr = "";
 		basedata = new BaseData();
 		skills = new LinkedList<SkillData>();
 		works = new LinkedList<WorkData>();
 		remarks = new LinkedList<String>();
 		picturePath = "";
-//		addSkill();
-//		addWork();
-		remarks.add("I am a student");
 	}
 
-	private void addSkill() {
-		SkillData skill = new SkillData();
-		skill.skillname = "C";
-		skill.starttime = 2010;
-		skill.setScore("9 8 7 9");
-		skills.add(skill);
-		
-		skill = new SkillData();
-		skill.skillname = "C++";
-		skill.starttime = 2011;
-		skill.setScore("9 8 7 9");
-		skills.add(skill);
-
-		skill = new SkillData();
-		skill.skillname = "Database";
-		skill.starttime = 2011;
-		skill.setScore("9 8 7 9");
-		skills.add(skill);
-		
-
-	}
-
-	private void addWork() {
-		WorkData workdata = new WorkData();
-		workdata.workname = "programmer";
-		workdata.company = "IBM";
-		workdata.score = 9;
-		workdata.begintime = 201009;
-		workdata.endtime = 201106;
-		works.add(workdata);
-		
-		workdata = new WorkData();
-		workdata.workname = "programmer";
-		workdata.company = "Microsoft";
-		workdata.score = 8;
-		workdata.begintime = 201109;
-		workdata.endtime = 201201;
-		works.add(workdata);
-
-		workdata = new WorkData();
-		workdata.workname = "Manager";
-		workdata.company = "Taobao";
-		workdata.score = 6;
-		workdata.begintime = 201206;
-		workdata.endtime = 201212;
-		works.add(workdata);
-	}
+	
 
 	public void set_id_usr(int id, String usr) {
 		this.id = id;

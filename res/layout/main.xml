@@ -34,32 +34,34 @@
             android:id="@+id/ok"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:background="@drawable/paint"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/paint" />
 
         <Button
             android:id="@+id/save"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_marginRight="40dp"
             android:layout_toRightOf="@id/ok"
-            android:background="@drawable/save"
-            android:layout_marginRight="15dp"/>
-        
+            android:background="@drawable/save" />
+
         <Button
             android:id="@+id/open"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_marginRight="40dp"
             android:layout_toRightOf="@id/save"
-            android:background="@drawable/open"
-            android:layout_marginRight="15dp"/>
+            android:background="@drawable/open" />
+
         <Button
             android:id="@+id/net"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/net"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:background="@drawable/net" />
+
     </RelativeLayout>
 
 </TabHost>

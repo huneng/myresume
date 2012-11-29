@@ -30,7 +30,7 @@ public class ResumeActivity extends TabActivity {
 	public Bitmap photo;
 	public static int width, height;
 	public String usrname, pwd;
-	public String site = "http://192.168.1.104:8080";
+	public String site = "http://192.168.1.106:8080";
 	public FileDealtor filedealtor;
 
 	@Override
@@ -98,6 +98,7 @@ public class ResumeActivity extends TabActivity {
 				startActivity(intent);
 				break;
 			case R.id.save:
+				myData.usr = usrname;
 				String data = "";
 				try {
 					data = myData.changToJsonData();
