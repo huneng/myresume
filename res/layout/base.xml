@@ -69,16 +69,18 @@
 
             <Button
                 android:id="@+id/get_tel"
-                android:layout_width="40dp"
+                android:layout_width="45dp"
                 android:layout_height="35dp"
+                android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/phone" />
+                android:background="@drawable/phone" 
+                android:layout_marginTop="10dp"/>
 
             <EditText
                 android:id="@+id/phone_edit"
                 style="@style/InputEdit"
                 android:layout_alignParentLeft="true"
-                android:layout_marginRight="45dp"
+                android:layout_marginRight="60dp"
                 android:hint="@string/phone"
                 android:inputType="phone" />
         </RelativeLayout>
@@ -89,21 +91,6 @@
             android:hint="@string/h_addr"
             android:inputType="textPostalAddress" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="15dp"
-            android:background="#aaaaaa" />
-
-        <Button
-            android:id="@+id/start_end_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:drawable/btn_default_small"
-            android:gravity="center" />
 
         <View
             android:layout_width="match_parent"
@@ -116,7 +103,6 @@
             style="@style/InputEdit"
             android:hint="@string/job"
             android:inputType="text" />
-
         <EditText
             android:id="@+id/salary1_edit"
             style="@style/InputEdit"

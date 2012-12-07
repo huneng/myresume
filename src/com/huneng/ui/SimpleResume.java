@@ -23,7 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
-public class SimpleResume extends View implements OnInputListener {
+public class SimpleResume extends View {
 	private int width;
 	private Rect lineRect, baseRect, axisRect, rectRect;
 	private int biWidth, biHeight;
@@ -35,13 +35,12 @@ public class SimpleResume extends View implements OnInputListener {
 	private HistogramAxis rectAx;
 	private List<Histogram> rects;
 	private List<Line> lines;
-	private List<Text> texts,nodeMark;
+	private List<Text> texts, nodeMark;
 	private List<Arc> arcs;
 	private Paint mPaint, tPaint;
 	private Bitmap photo;
 	private List<SkillData> skills;
-	int color[] = { 
-			0xff000000, 0xff000055, 0xff0000aa, 0xff005500, 0xff005555,
+	int color[] = { 0xff000000, 0xff000055, 0xff0000aa, 0xff005500, 0xff005555,
 			0xff0055aa, 0xff00aa00, 0xff00aa55, 0xff00aaaa, 0xff550000,
 			0xff550055, 0xff5500aa, 0xff555500, 0xff555555, 0xff5555aa,
 			0xff55aa00, 0xff55aa55, 0xff55aaaa, 0xffaa0000, 0xffaa0055,
@@ -139,7 +138,7 @@ public class SimpleResume extends View implements OnInputListener {
 		for (int i = 0; i < texts.size(); i++) {
 			texts.get(i).draw(canvas);
 		}
-		for(int i = 0; i < nodeMark.size(); i++){
+		for (int i = 0; i < nodeMark.size(); i++) {
 			nodeMark.get(i).draw(canvas);
 		}
 		remarks.draw(canvas);
@@ -227,18 +226,24 @@ public class SimpleResume extends View implements OnInputListener {
 		nodeMark.clear();
 		colorChange();
 		SkillData skill = skills.get(index);
-		for (int i = 0; i < skill.length; i++) {
+		for (int i = 0; i < skill.length-1; i++) {
 			PointF p1 = lineAx.inverseMap(skill.starttime + i, skill.scores[i]);
 			PointF p2 = lineAx.inverseMap(skill.starttime + i + 1,
 					skill.scores[i + 1]);
 			Line line = new Line(p1.x, p1.y, p2.x, p2.y, mPaint);
 			lines.add(line);
 
-			Text t = new Text(""+skill.starttime+','+skill.scores[i]);
-			t.setLocation(p1.x, p1.y+20);
+			Text t = new Text("" + skill.starttime + ',' + skill.scores[i]);
+			t.setLocation(p1.x, p1.y + 20);
 			t.setPaint(tPaint);
 			nodeMark.add(t);
 		}
+		PointF p = lineAx.inverseMap(skill.starttime + skill.length-1,
+				skill.scores[skill.length - 1]);
+		Text t = new Text("" + skill.starttime + ',' + skill.scores[skill.length-1]);
+		t.setLocation(p.x, p.y + 20);
+		t.setPaint(tPaint);
+		nodeMark.add(t);
 		invalidate();
 	}
 
@@ -306,7 +311,7 @@ public class SimpleResume extends View implements OnInputListener {
 		float y = event.getY();
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (remarks.contains(x, y)) {
-				new SimpleInputDialog(c, this).show();
+				new SimpleInputDialog(c, inputlistener).show();
 				return true;
 			}
 			int i = arcContains(x, y);
@@ -317,10 +322,12 @@ public class SimpleResume extends View implements OnInputListener {
 		return true;
 	}
 
-	@Override
-	public void inputFinish(String str) {
-		remarks.add(str);
-		ResumeActivity.resume.myData.remarks.add(str);
-		invalidate();
-	}
+	OnInputListener inputlistener = new OnInputListener() {
+		@Override
+		public void inputFinish(String str) {
+			remarks.add(str);
+			ResumeActivity.resume.myData.remarks.add(str);
+			invalidate();
+		}
+	};
 }

@@ -58,7 +58,6 @@ public class SkillData {
 		}
 		if (t != 0) {
 			scores[length++] = t;
-			t = 0;
 		}
 	}
 	public boolean check(){

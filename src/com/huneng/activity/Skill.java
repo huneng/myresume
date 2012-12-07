@@ -18,6 +18,7 @@ public class Skill extends Activity {
 	Button frontBtn, nextBtn;
 	Button sAddBtn, sDeleteBtn;
 	int curIndex;
+	int starttime, endtime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class Skill extends Activity {
 		nextBtn = (Button) findViewById(R.id.skill_next);
 		sAddBtn = (Button) findViewById(R.id.skill_new);
 		sDeleteBtn = (Button) findViewById(R.id.skill_delete);
+
 		frontBtn.setOnClickListener(cl);
 		nextBtn.setOnClickListener(cl);
 		sAddBtn.setOnClickListener(cl);
@@ -43,6 +45,8 @@ public class Skill extends Activity {
 		snameEd = (EditText) findViewById(R.id.skill_edit);
 		sstartEd = (EditText) findViewById(R.id.skill_start_edit);
 		sscoresEd = (EditText) findViewById(R.id.skill_score_edit);
+
+		starttime = endtime = 0;
 	}
 
 	@Override
@@ -56,11 +60,18 @@ public class Skill extends Activity {
 		super.onResume();
 	}
 
-	@Override 
+	@Override
 	protected void onPause() {
 		saveData();
+		if (ResumeActivity.resume.myData.basedata.starttime > starttime) {
+			ResumeActivity.resume.myData.basedata.starttime = starttime;
+		}
+		if (ResumeActivity.resume.myData.basedata.endtime < endtime) {
+			ResumeActivity.resume.myData.basedata.endtime = endtime;
+		}
 		super.onPause();
 	}
+
 	private OnClickListener cl = new OnClickListener() {
 
 		@Override
@@ -102,16 +113,30 @@ public class Skill extends Activity {
 		curSkill.setScore(str);
 
 		skills.set(curIndex, curSkill);
+		if (starttime == 0) {
+			starttime = curSkill.starttime;
+		} else {
+			if (starttime > curSkill.starttime) {
+				starttime = curSkill.starttime;
+			}
+		}
+		if (endtime == 0) {
+			endtime = curSkill.starttime + curSkill.length-1 ;
+		} else {
+			if (endtime < curSkill.starttime + curSkill.length ) {
+				endtime = curSkill.starttime + curSkill.length-1 ;
+			}
+		}
 	}
 
 	private void initEdit(SkillData curSkill) {
 		snameEd.setText(curSkill.skillname);
-		
+
 		String str = "";
 		if (curSkill.starttime != 0)
 			str = "" + curSkill.starttime;
 		sstartEd.setText(str);
-		
+
 		str = "";
 		for (int i = 0; i < curSkill.length; i++) {
 			str += curSkill.scores[i] + " ";
@@ -149,5 +174,5 @@ public class Skill extends Activity {
 		curSkill = skills.get(0);
 		initEdit(curSkill);
 	}
-	
+
 }

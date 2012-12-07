@@ -3,7 +3,6 @@ package com.huneng.activity;
 import java.util.Calendar;
 
 import com.huneng.data.BaseData;
-import com.huneng.ui.TimeDialog;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -29,7 +28,7 @@ public class Base extends Activity {
 	private EditText name_ed, phone_ed, addr_ed;
 	private EditText job_ed, holi_ed, salary_ed;
 	private EditText remark_ed;
-	private Button btn, getPhoneBtn, timeBtn, sexBtn;
+	private Button btn, getPhoneBtn, sexBtn;
 	private BaseData basedata;
 	private String remark;
 	private ImageView image;
@@ -50,7 +49,6 @@ public class Base extends Activity {
 		remark_ed = (EditText) findViewById(R.id.remark_edit);
 
 		btn = (Button) findViewById(R.id.age_btn);
-		timeBtn = (Button) findViewById(R.id.start_end_btn);
 		getPhoneBtn = (Button) findViewById(R.id.get_tel);
 		sexBtn = (Button) findViewById(R.id.sex_btn);
 		image = (ImageView) findViewById(R.id.photo_view);
@@ -58,10 +56,10 @@ public class Base extends Activity {
 		sexBtn.setOnClickListener(l);
 		btn.setOnClickListener(l);
 		getPhoneBtn.setOnClickListener(l);
-		timeBtn.setOnClickListener(l);
 		image.setOnClickListener(l);
 
 		parent = ResumeActivity.resume;
+
 
 	}
 
@@ -75,10 +73,6 @@ public class Base extends Activity {
 
 	@Override
 	protected void onPause() {
-		String str = timeBtn.getText().toString();
-		int time[] = getNumber(str);
-		basedata.starttime = time[0];
-		basedata.endtime = time[1];
 		saveData();
 		super.onPause();
 	}
@@ -113,9 +107,6 @@ public class Base extends Activity {
 					break;
 				}
 				phone_ed.setText(str);
-				break;
-			case R.id.start_end_btn:
-				new TimeDialog(Base.this, timeBtn).show();
 				break;
 			case R.id.photo_view:
 				Intent i = new Intent(
@@ -182,8 +173,6 @@ public class Base extends Activity {
 		sexBtn.setText(basedata.sex);
 		phone_ed.setText(basedata.phone);
 		addr_ed.setText(basedata.address);
-		String str = "" + basedata.starttime + "-" + basedata.endtime;
-		timeBtn.setText(str);
 		btn.setText(basedata.birth);
 		job_ed.setText(basedata.job);
 		holi_ed.setText(basedata.holiday);

@@ -19,6 +19,7 @@ public class Work extends Activity {
 	List<WorkData> works;
 	WorkData curWork;
 	int curIndex;
+	int starttime, endtime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class Work extends Activity {
 		scoreEd = (EditText) findViewById(R.id.work_score);
 		companyEd = (EditText) findViewById(R.id.company_edit);
 		positionEd = (EditText) findViewById(R.id.work_edit);
+		starttime = endtime = 0;
 	}
 
 	@Override
@@ -58,9 +60,15 @@ public class Work extends Activity {
 		initEdit(curWork);
 		super.onResume();
 	}
-	
+
 	protected void onPause() {
 		saveData();
+		if (ResumeActivity.resume.myData.basedata.starttime > starttime) {
+			ResumeActivity.resume.myData.basedata.starttime = starttime;
+		}
+		if (ResumeActivity.resume.myData.basedata.endtime < endtime) {
+			ResumeActivity.resume.myData.basedata.endtime = endtime;
+		}
 		super.onPause();
 	}
 
@@ -75,7 +83,7 @@ public class Work extends Activity {
 					front();
 				break;
 			case R.id.work_next:
-				if (curIndex != works.size()-1)
+				if (curIndex != works.size() - 1)
 					next();
 				break;
 			case R.id.work_new:
@@ -129,6 +137,23 @@ public class Work extends Activity {
 		curWork.score = Integer.parseInt(str);
 
 		works.set(curIndex, curWork);
+
+		int t = curWork.begintime / 100;
+		if (starttime == 0) {
+			starttime = t;
+
+		} else {
+			if (starttime > t)
+				starttime = t;
+		}
+		t = curWork.endtime / 100;
+		if (endtime == 0) {
+			endtime = t;
+		} else {
+			if (endtime < t) {
+				endtime = t;
+			}
+		}
 	}
 
 	protected void delWork() {

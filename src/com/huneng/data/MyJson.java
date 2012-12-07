@@ -15,7 +15,7 @@ public class MyJson {
 	public String usr;
 	public int id;
 	public String picturePath;
-
+	public int starttime, endtime;
 	public MyJson() {
 		id = -1;
 		usr = "";

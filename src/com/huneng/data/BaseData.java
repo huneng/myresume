@@ -18,7 +18,7 @@ public class BaseData {
 		birth = "";
 		sex = "male";
 		starttime = 2010;
-		endtime = 2014;
+		endtime = 2010;
 	}
 
 	public boolean check() {
