@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="android:Theme.Light" />
 
@@ -45,7 +45,7 @@
     </style>
 
     <style name="InputEdit">
-        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>
@@ -64,6 +64,12 @@
         <item name="android:layout_width">35dp</item>
         <item name="android:layout_height">35dp</item>
         <item name="android:background">@drawable/previous</item>
+    </style>
+
+    <style name="ToolButton">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_marginRight">40dp</item>
     </style>
 
 </resources>

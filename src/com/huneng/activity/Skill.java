@@ -49,6 +49,7 @@ public class Skill extends Activity {
 		starttime = endtime = 0;
 	}
 
+
 	@Override
 	protected void onResume() {
 		skills = ResumeActivity.resume.myData.skills;

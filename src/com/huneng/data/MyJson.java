@@ -16,17 +16,71 @@ public class MyJson {
 	public int id;
 	public String picturePath;
 	public int starttime, endtime;
+
 	public MyJson() {
-		id = -1;
-		usr = "";
-		basedata = new BaseData();
-		skills = new LinkedList<SkillData>();
-		works = new LinkedList<WorkData>();
-		remarks = new LinkedList<String>();
-		picturePath = "";
+//		id = -1;
+//		usr = "";
+//		basedata = new BaseData();
+//		skills = new LinkedList<SkillData>();
+//		works = new LinkedList<WorkData>();
+//		remarks = new LinkedList<String>();
+//		picturePath = "";
+		sampleData();
 	}
 
-	
+	void sampleData() {
+		id = -1;
+		usr = "huneng";
+		basedata = new BaseData();
+		basedata.name = "huneng";
+		basedata.birth = "1991-6-17";
+		basedata.phone = "18768122382";
+		basedata.job = "Programmer";
+		basedata.holiday = "3";
+		basedata.salary = "$9000";
+		basedata.sex = "male";
+		basedata.starttime = 2010;
+		basedata.endtime = 2016;
+		skills = new LinkedList<SkillData>();
+		SkillData skill = new SkillData();
+		skill.skillname = "c";
+		skill.setScore("7 8 9 6");
+		skill.starttime = 2010;
+		skills.add(skill);
+		skill = new SkillData();
+		skill.skillname = "c++";
+		skill.setScore("7 8 9 6");
+		skill.starttime = 2011;
+		skills.add(skill);
+		skill = new SkillData();
+		skill.skillname = "database";
+		skill.setScore("8 8 8 9");
+		skill.starttime = 2010;
+		skills.add(skill);
+
+		works = new LinkedList<WorkData>();
+		
+		WorkData work = new WorkData();
+		work.company="IBM";
+		work.workname = "Programmer";
+		work.begintime = 201009;
+		work.endtime = 201101;
+		work.score = 9;
+		works.add(work);
+		work = new WorkData();
+		work.company="Microsoft";
+		work.workname = "typewriter";
+		work.begintime = 201105;
+		work.endtime = 201210;
+		work.score = 10;
+		works.add(work);
+
+		remarks = new LinkedList<String>();
+		remarks.add("I have a dream");
+		remarks.add("It's my place");
+		
+		picturePath = "";
+	}
 
 	public void set_id_usr(int id, String usr) {
 		this.id = id;
