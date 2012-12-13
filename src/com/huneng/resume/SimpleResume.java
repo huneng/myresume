@@ -63,7 +63,7 @@ public class SimpleResume extends View {
 
 		int start = data.basedata.starttime;
 		int end = data.basedata.endtime;
-		initAxis(end - start , 10, start, end);
+		initAxis(end - start - 1, 10, start, end);
 
 		lines = new LinkedList<Line>();
 		nodeMark = new LinkedList<Text>();
@@ -221,23 +221,25 @@ public class SimpleResume extends View {
 	void displaySkill(int index) {
 		lines.clear();
 		nodeMark.clear();
-		colorChange();
+		mPaint.setColor(arcs.get(index).paint.getColor());
 		SkillData skill = skills.get(index);
-		for (int i = 0; i < skill.length-1; i++) {
+		for (int i = 0; i < skill.length - 1; i++) {
 			PointF p1 = lineAx.inverseMap(skill.starttime + i, skill.scores[i]);
 			PointF p2 = lineAx.inverseMap(skill.starttime + i + 1,
 					skill.scores[i + 1]);
 			Line line = new Line(p1.x, p1.y, p2.x, p2.y, mPaint);
 			lines.add(line);
 
-			Text t = new Text("" + skill.starttime + ',' + skill.scores[i]);
+			Text t = new Text("" + (skill.starttime + i) + ','
+					+ skill.scores[i]);
 			t.setLocation(p1.x, p1.y + 20);
 			t.setPaint(tPaint);
 			nodeMark.add(t);
 		}
-		PointF p = lineAx.inverseMap(skill.starttime + skill.length-1,
+		PointF p = lineAx.inverseMap(skill.starttime + skill.length - 1,
 				skill.scores[skill.length - 1]);
-		Text t = new Text("" + skill.starttime + ',' + skill.scores[skill.length-1]);
+		Text t = new Text("" + (skill.starttime + skill.length - 1) + ','
+				+ skill.scores[skill.length - 1]);
 		t.setLocation(p.x, p.y + 20);
 		t.setPaint(tPaint);
 		nodeMark.add(t);

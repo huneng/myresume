@@ -18,13 +18,13 @@ public class MyJson {
 	public int starttime, endtime;
 
 	public MyJson() {
-//		id = -1;
-//		usr = "";
-//		basedata = new BaseData();
-//		skills = new LinkedList<SkillData>();
-//		works = new LinkedList<WorkData>();
-//		remarks = new LinkedList<String>();
-//		picturePath = "";
+		// id = -1;
+		// usr = "";
+		// basedata = new BaseData();
+		// skills = new LinkedList<SkillData>();
+		// works = new LinkedList<WorkData>();
+		// remarks = new LinkedList<String>();
+		// picturePath = "";
 		sampleData();
 	}
 
@@ -32,53 +32,73 @@ public class MyJson {
 		id = -1;
 		usr = "huneng";
 		basedata = new BaseData();
-		basedata.name = "huneng";
+		basedata.name = "张三";
 		basedata.birth = "1991-6-17";
 		basedata.phone = "18768122382";
-		basedata.job = "Programmer";
+		basedata.address = "浙江杭州";
+		basedata.job = "程序员";
 		basedata.holiday = "3";
-		basedata.salary = "$9000";
+		basedata.salary = "9000员";
 		basedata.sex = "male";
 		basedata.starttime = 2010;
 		basedata.endtime = 2016;
+
 		skills = new LinkedList<SkillData>();
 		SkillData skill = new SkillData();
 		skill.skillname = "c";
-		skill.setScore("7 8 9 6");
+		skill.setScore("4 7 9 9");
 		skill.starttime = 2010;
 		skills.add(skill);
 		skill = new SkillData();
 		skill.skillname = "c++";
-		skill.setScore("7 8 9 6");
+		skill.setScore("3 5 8 6");
 		skill.starttime = 2011;
 		skills.add(skill);
 		skill = new SkillData();
 		skill.skillname = "database";
-		skill.setScore("8 8 8 9");
+		skill.setScore("6 4 8 9");
 		skill.starttime = 2010;
+		skills.add(skill);
+		skill = new SkillData();
+		skill.skillname = "datastructure";
+		skill.setScore("6 4 8");
+		skill.starttime = 2012;
+		skills.add(skill);
+		skill = new SkillData();
+		skill.skillname = "internet";
+		skill.setScore("6 5 9");
+		skill.starttime = 2012;
 		skills.add(skill);
 
 		works = new LinkedList<WorkData>();
-		
+
 		WorkData work = new WorkData();
-		work.company="IBM";
-		work.workname = "Programmer";
+		work.company = "IBM";
+		work.workname = "程序员";
 		work.begintime = 201009;
 		work.endtime = 201101;
 		work.score = 9;
 		works.add(work);
 		work = new WorkData();
-		work.company="Microsoft";
-		work.workname = "typewriter";
+		work.company = "微软";
+		work.workname = "网络";
 		work.begintime = 201105;
-		work.endtime = 201210;
+		work.endtime = 201201;
+		work.score = 10;
+		works.add(work);
+		work = new WorkData();
+		work.company = "谷歌";
+		work.workname = "网络";
+		work.begintime = 201205;
+		work.endtime = 201209;
 		work.score = 10;
 		works.add(work);
 
 		remarks = new LinkedList<String>();
-		remarks.add("I have a dream");
-		remarks.add("It's my place");
-		
+		remarks.add("希望获得更多的机会");
+		remarks.add("能够自由的开发");
+		remarks.add("工作方式自由");
+
 		picturePath = "";
 	}
 

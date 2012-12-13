@@ -86,14 +86,14 @@ public class SimpleResume2 extends View {
 		int top = textsRec.top;
 		
 		Paint p = new Paint();
-		p.setTextSize(20);
+		p.setTextSize(10);
 		p.setColor(Color.BLACK);
-		texts.add(new Text("I want to be " + basedata.job).setLocation(20, top+30)
+		texts.add(new Text("我需要的工作是 " + basedata.job).setLocation(20, top+30)
 				.setPaint(p));
-		texts.add(new Text("I want get " + basedata.salary + " every month")
+		texts.add(new Text("我需要的薪水 " + basedata.salary + " 每月")
 				.setLocation(20, top+50).setPaint(p));
-		texts.add(new Text("I want have " + basedata.holiday
-				+ "day break every week").setLocation(20, top+70).setPaint(p));
+		texts.add(new Text("我的假期" + basedata.holiday
+				+ "每星期").setLocation(20, top+70).setPaint(p));
 		for (int i = 0; i < remarks.size(); i++) {
 			texts.add(new Text(remarks.get(i)).setLocation(width / 2,
 					top+20 + i * 20).setPaint(p));
